@@ -19,15 +19,14 @@ while True:
   print("========== (b). The Withdraw Money ============")
   print("========== (c). Deposit Money ============")
   print("========== (d). Check Balance ============")
-  print("========== (e). Close Account ============")
-  print("========== (f). Quit ============")
+  print("========== (e). Quit ============")
   print("************************************************************")
 
 
 
   
   EnterLetter = input("Select a Letter from the Above Box menu : ")
-  if EnterLetter== "f":
+  if EnterLetter== "e":
     print ("Thanks, hope to see you soon!")
     break
   if EnterLetter == "a":
@@ -48,3 +47,28 @@ while True:
     mycursor.execute(sql, val)
     mydb.commit() 
 
+
+  if EnterLetter == "b":
+    V= 0
+    print(" letter b is Selected by the Client")
+
+    w = -1
+    name = input("Please Insert a name : ")
+    pin = input("Please Insert a pin : ")
+    deposit =input("Please Insert deposit amount: ")
+
+    
+    sql = "SELECT * from bankingsystem.bank WHERE UserName = %s and PinNumber = %s"
+    val = (name, pin)
+    mycursor.execute(sql, val)
+    myresult = mycursor.fetchall()
+    print (myresult)
+    # [('Yanni, '78721',0, '7865)]
+    #print (myresult[0][2])
+    newbalance = myresult[0][2] + int(deposit)
+    sql = "UPDATE bankingsystem.bank SET Balance = %s WHERE UserName = %s"
+    val = (newbalance, name)
+    mycursor.execute(sql, val)
+    mydb.commit() 
+
+  
